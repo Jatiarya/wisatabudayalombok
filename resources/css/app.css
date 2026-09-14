@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* Cukup arahkan ke file sumber aslimu saja, jangan ke storage cache */
+@source "../**/*.blade.php";
+@source "../**/*.js";
+
+@theme {
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    --color-lombok-earth: #8b5e34;
+    --color-lombok-terracotta: #c1440e;
+    --color-lombok-forest: #3f6c51;
+    --color-lombok-gold: #d9a441;
+    --color-lombok-cream: #fbf3e7;
+    --color-sasak-teracotta: #a84b2a;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+body {
+    background-image:
+        radial-gradient(
+            circle at 15% 0%,
+            color-mix(in srgb, var(--color-lombok-gold) 12%, transparent) 0%,
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at 85% 10%,
+            color-mix(in srgb, var(--color-lombok-terracotta) 10%, transparent)
+                0%,
+            transparent 40%
+        );
+    background-attachment: fixed;
+}
+
+@layer components {
+    .section-wisata {
+        @apply grid bg-sasak-teracotta;
+    }
+    .card-group {
+        @apply grid grid-cols-3;
+    }
+    .card-container-title {
+        @apply text-cyan-500 text-xl font-bold;
+    }
+    .card-title {
+        @apply text-red-500 text-xl font-bold;
+    }
+
+    /* OPTIMASI: Menghapus backdrop-blur pada kartu untuk meringankan beban GPU HP */
+    .card {
+        @apply w-full bg-white/90 border border-white/80 rounded-2xl shadow-md overflow-hidden p-3
+            transition-all duration-300 hover:bg-white hover:shadow-xl hover:-translate-y-1;
+    }
+
+    .btn-primary {
+        @apply inline-flex place-items-end gap-2 bg-lombok-terracotta text-white px-5 py-2.5 rounded-md font-medium hover:bg-lombok-earth transition-colors;
+    }
+
+    .section-title {
+        @apply text-3xl md:text-4xl font-bold text-lombok-earth mb-2;
+    }
+
+    /* Menurunkan intensitas blur ke tingkat sedang agar compositing layer tidak berat */
+    .glass-panel {
+        @apply backdrop-blur-md bg-white/80 border border-white/60 shadow-lg shadow-black/5 rounded-2xl;
+    }
+
+    .input-glass {
+        @apply bg-white/70 border border-white/80 rounded-lg px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-lombok-terracotta/50 focus:bg-white transition-colors;
+    }
+
+    /* Navbar tetap menggunakan backdrop-blur-md karena cuma ada 1 elemen di layar */
+    .navbar-glass {
+        @apply backdrop-blur-md bg-white/80 border border-white/50;
+    }
+
+    .btn-outline-glass {
+        @apply inline-flex items-center gap-2 border border-lombok-earth/25 text-lombok-earth px-4 py-2 rounded-full text-sm font-medium bg-white/60 hover:bg-white/90 hover:border-lombok-earth/40 transition-colors;
+    }
+
+    .btn-outline-glass-dark {
+        @apply inline-flex items-center gap-2 border border-white/30 text-white px-5 py-2.5 rounded-md font-medium bg-white/10 hover:bg-white/20 transition-colors;
+    }
+
+    .btn-glow {
+        @apply inline-flex items-center gap-2 bg-gradient-to-r from-lombok-terracotta to-lombok-gold text-white px-4 py-2 rounded-full text-sm font-medium shadow-md shadow-lombok-terracotta/30 hover:shadow-lg hover:shadow-lombok-terracotta/40 transition-all;
+    }
+}
